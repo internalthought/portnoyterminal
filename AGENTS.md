@@ -199,3 +199,7 @@ Codex merges `AGENTS.md` from the following locations (top-down):
 - Env defaults: `CODEX_CMD_TIMEOUT_SEC`, `CODEX_IDLE_TIMEOUT_SEC`, `CODEX_VERBOSE=1`.
 - Logs: `.codex/logs/tools.log` (JSONL). Hang report: `.codex/logs/hang_<ts>.json`.
 - Enable live echo: set `CODEX_VERBOSE=1` or pass `--verbose` where supported.
+
+## Memories
+
+- [2025-09-06 21:49:46] (main) Phase 1 started: repo initialized, remote set, PRD.json annotated with phaseStatus.
