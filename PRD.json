@@ -1,0 +1,210 @@
+{
+  "prd": {
+    "projectName": "Polymarket Terminal MVP",
+    "overview": "A web-based dashboard for monitoring prediction markets on Polymarket. The MVP will provide users with a simple, real-time view of market prices in a flexible, widget-based interface, similar in spirit to a Bloomberg Terminal.",
+    "goals": [
+      "Create a functional web application where a user can select a Polymarket market and view its price update in real-time."
+    ],
+    "mvpScope": {
+      "inScope": [
+        "Fetch and display a list of available markets from Polymarket.",
+        "Allow a user to select a market to monitor.",
+        "Display the selected market's price and other key data in a widget.",
+        "Update the price information in real-time.",
+        "Allow the user to drag the market widget within the dashboard view."
+      ],
+      "outOfScope": [
+        "User authentication and accounts.",
+        "Trading or portfolio management.",
+        "Historical price charts and advanced analytics.",
+        "Saving dashboard layouts.",
+        "Support for prediction markets other than Polymarket."
+      ]
+    },
+    "userStories": [
+      {
+        "as": "a user",
+        "iWant": "to see a list of all active markets",
+        "soThat": "I can choose which ones to track."
+      },
+      {
+        "as": "a user",
+        "iWant": "to select a market from the list",
+        "soThat": "I can start monitoring its price."
+      },
+      {
+        "as": "a user",
+        "iWant": "to see the price of a selected market update automatically in real-time",
+        "soThat": "I have the most current information."
+      },
+      {
+        "as": "a user",
+        "iWant": "to be able to move the market information widget around the screen",
+        "soThat": "I can arrange my dashboard to my liking."
+      }
+    ],
+    "technicalRequirements": {
+      "stack": {
+        "frontend": "React, TypeScript, Vite",
+        "backend": "Node.js, Express.js, TypeScript",
+        "realtime": "WebSockets"
+      },
+      "architecture": "A monorepo structure containing two main packages: `api` (the backend server) and `web` (the React frontend).",
+      "testing": "Adherence to a strict Test-Driven Development (TDD) methodology. Unit, integration, and End-to-End (E2E) tests are required. Vitest or Jest should be used as the testing framework.",
+      "dataSource": "The backend will act as a proxy to the Polymarket API. All interactions with the Polymarket API must be handled by the `api` service."
+    }
+  },
+  "masterTasklist": [
+    {
+      "phaseId": 1,
+      "phaseName": "Project Setup & Foundation",
+      "description": "Establishes the project structure, development environment, and core dependencies. All tasks in this phase must be completed before backend or frontend development begins.",
+      "tasks": [
+        {
+          "taskId": "1.1",
+          "description": "Initialize a new Git repository."
+        },
+        {
+          "taskId": "1.2",
+          "description": "Create a monorepo structure using npm/yarn/pnpm workspaces with `packages/api` and `packages/web`."
+        },
+        {
+          "taskId": "1.3",
+          "description": "Set up shared TypeScript, ESLint, and Prettier configurations at the root level."
+        },
+        {
+          "taskId": "1.4",
+          "description": "Initialize the `packages/api` project with Node.js, TypeScript, and Express."
+        },
+        {
+          "taskId": "1.5",
+          "description": "Initialize the `packages/web` project using Vite with the React + TypeScript template."
+        },
+        {
+          "taskId": "1.6",
+          "description": "Configure the testing framework (Vitest) for both `api` and `web` packages and create placeholder tests."
+        },
+        {
+          "taskId": "1.7",
+          "description": "Create a root-level `README.md` file with a basic project description and setup instructions."
+        },
+        {
+          "taskId": "1.8",
+          "description": "Create a `STACK.md` file at the root detailing the chosen technologies."
+        },
+        {
+          "taskId": "1.9",
+          "description": "Create the `PRD.md` file in the project root."
+        }
+      ]
+    },
+    {
+      "phaseId": 2,
+      "phaseName": "Backend API Development (`packages/api`)",
+      "description": "Focuses on building the server-side application that will fetch data from the Polymarket API and serve it to our frontend.",
+      "tasks": [
+        {
+          "taskId": "2.1",
+          "description": "[API Contracts] Define TypeScript interfaces for `Market` and `MarketPriceUpdate` in a shared `packages/common` directory."
+        },
+        {
+          "taskId": "2.2",
+          "description": "[Web Server] Set up a basic Express.js server with a `GET /health` endpoint."
+        },
+        {
+          "taskId": "2.3",
+          "description": "[Polymarket Service] Implement a `PolymarketService` class with a `getMarkets()` method to fetch data from the external Polymarket API."
+        },
+        {
+          "taskId": "2.4",
+          "description": "[Markets Endpoint] Create a `GET /api/v1/markets` endpoint that uses `PolymarketService`."
+        },
+        {
+          "taskId": "2.5",
+          "description": "[WebSocket Setup] Integrate a WebSocket library (e.g., `ws`) with the Express server and test basic connection."
+        },
+        {
+          "taskId": "2.6",
+          "description": "[Real-time Price Logic] Implement WebSocket logic to handle client 'subscribe' messages, poll the Polymarket API for price updates, and broadcast them to subscribed clients."
+        }
+      ]
+    },
+    {
+      "phaseId": 3,
+      "phaseName": "Frontend Development (`packages/web`)",
+      "description": "Focuses on building the user interface. Components should be developed with testability and reusability in mind.",
+      "tasks": [
+        {
+          "taskId": "3.1",
+          "description": "[API Client] Create an `apiClient.ts` service with a `fetchMarkets()` function to call the backend API."
+        },
+        {
+          "taskId": "3.2",
+          "description": "[WebSocket Client] Create a `socketClient.ts` service to manage the WebSocket connection and market subscriptions."
+        },
+        {
+          "taskId": "3.3",
+          "description": "[Dashboard Layout] Create a basic `Dashboard.tsx` layout component to house the market list and widgets."
+        },
+        {
+          "taskId": "3.4",
+          "description": "[Market List Component] Create a `MarketList.tsx` component that fetches and displays markets, and handles selection."
+        },
+        {
+          "taskId": "3.5",
+          "description": "[Market Widget Component] Create the core `MarketWidget.tsx` component to display market data passed via props."
+        },
+        {
+          "taskId": "3.6",
+          "description": "[Draggable Widget] Integrate `react-draggable` into `MarketWidget.tsx` to allow it to be moved on screen."
+        },
+        {
+          "taskId": "3.7",
+          "description": "[Live Data Integration] Connect all components in `Dashboard.tsx` to create widgets on market selection and update them with live data from the `socketClient`."
+        },
+        {
+          "taskId": "3.8",
+          "description": "[Styling] Apply minimal CSS to create a clean 'terminal' look and feel."
+        }
+      ]
+    },
+    {
+      "phaseId": 4,
+      "phaseName": "Integration, E2E Testing & Finalization",
+      "description": "Ensures all parts of the application work together seamlessly and prepares the project for deployment.",
+      "tasks": [
+        {
+          "taskId": "4.1",
+          "description": "[CORS] Configure Cross-Origin Resource Sharing (CORS) on the backend API."
+        },
+        {
+          "taskId": "4.2",
+          "description": "[E2E Testing] Write an E2E test (Playwright/Cypress) to verify the core user flow: load markets, select one, and see a draggable widget appear."
+        },
+        {
+          "taskId": "4.3",
+          "description": "[Environment Variables] Set up `.env` file handling for configurable variables like API URLs."
+        },
+        {
+          "taskId": "4.4",
+          "description": "[Documentation] Update the root `README.md` with complete instructions for running the application stack locally."
+        },
+        {
+          "taskId": "4.5",
+          "description": "[Dockerization] Create `Dockerfile`s for `api` and `web` and a `docker-compose.yml` to orchestrate the application."
+        }
+      ]
+    }
+  ],
+  "phaseStatus": {
+    "activePhaseId": 1,
+    "phases": [
+      {
+        "phaseId": 1,
+        "name": "Project Setup & Foundation",
+        "status": "in_progress",
+        "startedDate": "2025-09-07"
+      }
+    ]
+  }
+}

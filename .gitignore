@@ -1,0 +1,36 @@
+# Node.js
+node_modules/
+dist/
+build/
+.next/
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# TypeScript
+*.tsbuildinfo
+
+# Env and local config
+.env*
+.DS_Store
+.idea/
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Codex CLI
+.codex/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# OS
+Thumbs.db
+
