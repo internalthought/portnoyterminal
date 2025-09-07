@@ -197,13 +197,14 @@
     }
   ],
   "phaseStatus": {
-    "activePhaseId": 1,
+    "activePhaseId": null,
     "phases": [
       {
         "phaseId": 1,
         "name": "Project Setup & Foundation",
-        "status": "in_progress",
-        "startedDate": "2025-09-07"
+        "status": "completed",
+        "startedDate": "2025-09-07",
+        "completedDate": "2025-09-07"
       }
     ]
   }
